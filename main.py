@@ -11,7 +11,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = "6518216142"
-MESSAGE="Webhook worked!"
+MESSAGE="Ligma"
 
 START_HOUR = 10
 END_HOUR = 23
