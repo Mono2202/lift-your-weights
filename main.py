@@ -30,7 +30,7 @@ async def periodic_sender(bot: Bot):
         weekday = now.weekday()
         if weekday not in SKIPPED_DAYS and START_HOUR <= now.hour <= END_HOUR:
             await bot.send_message(chat_id=CHAT_ID, text=next(messages_cycler))
-        await asyncio.sleep(60 * 30)  # Wait 30 minutes
+        await asyncio.sleep(60 * 60)  # Wait 1 hour
 
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
