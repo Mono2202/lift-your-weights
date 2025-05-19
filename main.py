@@ -23,6 +23,7 @@ END_HOUR = 23
 SKIPPED_DAYS = [4, 5]
 
 async def periodic_sender(bot: Bot):
+    await bot.send_message(chat_id=CHAT_ID, text="Bot Updated!")
     messages_cycler = itertools.cycle(MESSAGES)
 
     while True:
