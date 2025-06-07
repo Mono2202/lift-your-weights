@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 from telegram import Bot
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram.error import TimedOut
 
 load_dotenv()
 
@@ -27,14 +28,17 @@ async def periodic_sender(bot: Bot):
     messages_cycler = itertools.cycle(MESSAGES)
 
     while True:
-        now = datetime.now()
-        weekday = now.weekday()
-        if weekday not in SKIPPED_DAYS and START_HOUR <= now.hour <= END_HOUR:
-            await bot.send_message(chat_id=CHAT_ID, text=next(messages_cycler))
-        await asyncio.sleep(60 * 60)  # Wait 1 hour
+        try:
+            now = datetime.now()
+            weekday = now.weekday()
+            if weekday not in SKIPPED_DAYS and START_HOUR <= now.hour <= END_HOUR:
+                await bot.send_message(chat_id=CHAT_ID, text=next(messages_cycler))
+            await asyncio.sleep(60 * 60)
+        except Exception as e:
+            print(e)
 
 def main():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app = ApplicationBuilder().token(BOT_TOKEN).read_timeout(30).write_timeout(30).connect_timeout(30).build()
     print("Bot up and running :)")
 
     asyncio.run(periodic_sender(app.bot))
