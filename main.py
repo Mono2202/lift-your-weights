@@ -12,7 +12,7 @@ from telegram.error import TimedOut
 load_dotenv()
 
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-CHAT_ID = "6518216142"
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 MESSAGES = [
     "BICEP CURL 💪",
     "PUSHUPS 🫸",
