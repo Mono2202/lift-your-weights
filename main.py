@@ -16,12 +16,14 @@ CHAT_ID = "6518216142"
 MESSAGES = [
     "BICEP CURL 💪",
     "PUSHUPS 🫸",
-    "Maybe something different??? Maybe... Shoulders...? Maybe... Legs????? 🤔🤔🤔"
+    "LEGS 🦵"
 ]
 
 START_HOUR = 10
 END_HOUR = 23
 SKIPPED_DAYS = [4, 5]
+
+MESSAGE_TIMER = 60 * 60    # 1 Hour
 
 async def periodic_sender(bot: Bot):
     await bot.send_message(chat_id=CHAT_ID, text="Bot Updated!")
@@ -33,7 +35,7 @@ async def periodic_sender(bot: Bot):
             weekday = now.weekday()
             if weekday not in SKIPPED_DAYS and START_HOUR <= now.hour <= END_HOUR:
                 await bot.send_message(chat_id=CHAT_ID, text=next(messages_cycler))
-            await asyncio.sleep(60 * 60)
+            await asyncio.sleep(MESSAGE_TIMER)
         except Exception as e:
             print(e)
 
